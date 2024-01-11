@@ -1,0 +1,33 @@
+package main
+
+import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/mattn/go-sqlite3"
+)
+
+func main() {
+
+	db, err := sql.Open("sqlite3", "./teste.db")
+	if err != nil {
+		panic(err)
+	}
+
+	// // create repository
+	// repository := product.NewProductRepository(db)
+
+	// // create usecase
+	// usecase := product.NewProductUsecase(repository)
+
+	usecase := NewUseCase(db)
+
+	//get product
+	prod, err := usecase.GetProduct(1)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(prod.Name)
+
+}
